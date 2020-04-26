@@ -67,3 +67,5 @@ def delete_vendedor(request, vend_id):
 	eliminar_vendedor = vendedor.objects.get(id=vend_id)
 	eliminar_vendedor.delete()
 	return redirect('/venta/vendedor/')
+def index(request):
+	return render(request,'venta/index.html')

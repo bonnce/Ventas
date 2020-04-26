@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+	path('',views.index),
 	#Tabla de p vendidos
 	path('vendido/', views.list_vendido),
 	#CRUD Cliente
