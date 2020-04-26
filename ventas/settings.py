@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')oof_y*ju)i9+pn&#b%f^@c8z$@1y-9cksxg526pwdn3+vkikg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -47,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleWare',
 ]
 
 ROOT_URLCONF = 'ventas.urls'
@@ -73,14 +74,24 @@ WSGI_APPLICATION = 'ventas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME':'ventas',
+#         'USER':'postgres',
+#         'PASSWORD':'pass',
+#         'HOST':'localhost' #aca va la config de la base de datos
+#     }
+# }
+
+#FOR HEROKU DATABASE------------
+import dj_database_url
+from decouple import config
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'ventas',
-        'USER':'postgres',
-        'PASSWORD':'pass',
-        'HOST':'localhost' #aca va la config de la base de datos
-    }
+    'default': dj_database_url.config(
+        default= config('DATABASE_URL')
+    )
 }
 
 
@@ -115,7 +126,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+#HEROKU FILES---------------------------------------------------------------------
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -126,3 +137,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
