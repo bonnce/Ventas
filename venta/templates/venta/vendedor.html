@@ -97,7 +97,7 @@
                                             <td>{{v.dni}}</td>
                                             <td>
                                                 <!-- Formulario para eliminar -->
-                                                <form action="{% url 'delete_vendedor' v.id %}" method="POST" class="float-right d-inline">
+                                                <form action="{% url 'delete_vend' v.id %}" method="POST" class="float-right d-inline">
                                                     {% csrf_token %}
                                                     <button type="submit" class="btn">
                                                         <i class="far fa-trash-alt fa-lg text-danger float-right"></i>                                        
